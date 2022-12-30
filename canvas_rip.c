@@ -62,6 +62,7 @@ int main(int argc, char** argv)
 		if(most == 0)
 		{
 			//the image is likely (definitely???) fullscreen, return
+			printf("Image doesn't have transparent key, stopping.\n");
 			return 0;
 		}
 		else
