@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
-
+#include <string.h>
 #include "lodepng.h"
 
 typedef uint32_t pixel_t; //32 bit rgba pixel
@@ -127,7 +127,10 @@ int main(int argc, char** argv)
 			}
 
 			printf("Saving image..\n");
-			lodepng_encode32_file("img.png", new_image, image.w, image.h);
+			char* path = (char*)malloc(strlen("output/") + strlen(argv[1]) + 1);
+			strcpy(path, "output/");
+			strcat(path, argv[1]);
+			lodepng_encode32_file(path, new_image, image.w, image.h);
 			free(new_image);
 
 		}
