@@ -74,14 +74,16 @@ int main(int argc, char** argv)
 
 			//find the y that the image begins at
 			current_pixel = pixels;
-			while(*current_pixel == transparent_key && (current_pixel - pixels) <= width*height) ++current_pixel; //if the image is fully transparent this might go out of bounds and crash..?
+			while(*current_pixel == transparent_key) ++current_pixel; //if the image is fully transparent this might go out of bounds and crash..?
 			image.y = (current_pixel - pixels) / width;
+
+			if(image.y >= height) return 0; //the whole image is the transparent color
 
 			printf("Image Y: %d\n", image.y);
 
 			//find the x that the image begins at
 			current_pixel = pixels;
-			while(*current_pixel == transparent_key && (current_pixel - pixels) <= width*height)
+			while(*current_pixel == transparent_key)
 			{
 					if( (current_pixel - pixels) + width < width*height)
 						current_pixel += width;
@@ -95,14 +97,14 @@ int main(int argc, char** argv)
 
 			//find the y that the image ends at
 			current_pixel = pixels + (width*height)-1; //bottom right corner
-			while(*current_pixel == transparent_key && (current_pixel - pixels) <= width*height) --current_pixel;
+			while(*current_pixel == transparent_key) --current_pixel;
 			image.h = ((current_pixel - pixels) / width) - image.y + 1;
 
 			printf("Image Height: %d\n", image.h);
 
 			//find the x that the image ends at
 			current_pixel = pixels + width - 1;
-            while(*current_pixel == transparent_key && (current_pixel - pixels) <= width*height)
+            while(*current_pixel == transparent_key) 
             {
                     if( (current_pixel - pixels) + width < width*height)
                         current_pixel += width;
